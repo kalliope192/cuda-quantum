@@ -62,3 +62,10 @@ RUN if [ -n "$install" ]; \
         fi; \
         echo "source-sha: $git_source_sha" > "$CUDAQ_INSTALL_PREFIX/build_info.txt"; \
     fi
+
+RUN git config --global --add safe.directory "**"
+RUN cd /workspaces/cuda-quantum
+RUN mkdir build
+RUN cd build
+RUN cmake ../
+RUN sh ../scripts/build_cudaq.sh
