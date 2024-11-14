@@ -1,1 +1,1 @@
-add_subdirectory(Plugins)
+add_subdirectory(test_plugin)
