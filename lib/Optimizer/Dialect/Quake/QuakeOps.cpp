@@ -1,5 +1,6 @@
 /*******************************************************************************
  * Copyright (c) 2022 - 2025 NVIDIA Corporation & Affiliates.                  *
+ * Copyright (c) 2022 - 2025 NVIDIA Corporation & Affiliates.                  *
  * All rights reserved.                                                        *
  *                                                                             *
  * This source code and the accompanying materials are made available under    *
@@ -836,6 +837,19 @@ void quake::R1Op::getOperatorMatrix(Matrix &matrix) {
   matrix.assign({1, 0, 0, std::exp(theta * 1i)});
 }
 
+void quake::RXX::getOperatorMatrix(Matrix &matrix) {
+  using namespace std::complex_literals;
+  double theta;
+  if (failed(getParameterAsDouble(getParameter(), theta)))
+    return;
+  if (getIsAdj())
+    theta *= -1;
+  matrix.assign({std::cos(theta / 2.), 0, 0, -1i * std::sin(theta / 2.),
+                0, std::cos(theta / 2.), -1i * std::sin(theta / 2.), 0, 
+                0, -1 * std::sin(theta / 2.), std::cos(theta / 2.), 0, 
+                -1 * std::sin(theta / 2.), 0, 0, std::cos(theta / 2.)});
+}
+
 void quake::RxOp::getOperatorMatrix(Matrix &matrix) {
   using namespace std::complex_literals;
   double theta;
@@ -909,6 +923,7 @@ void quake::TOp::getOperatorMatrix(Matrix &matrix) {
   else
     matrix.assign({1, 0, 0, {inv_sqrt2, inv_sqrt2}});
 }
+
 
 void quake::U2Op::getOperatorMatrix(Matrix &matrix) {
   using namespace llvm::numbers;

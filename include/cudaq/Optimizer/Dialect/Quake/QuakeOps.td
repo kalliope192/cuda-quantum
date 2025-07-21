@@ -1340,6 +1340,26 @@ def PhasedRxOp : QuakeOperator<"phased_rx",
   }];
 }
 
+def RXX : TwoTargetOp<"RXX", [Rotation]> {
+  let summary = "an RXX gate custom for the Munich Quantum Software Stack";
+  let description = [{
+    Matrix representation:
+    ```
+    RXX(θ)=|cos(θ/2), 0, 0, -sin(θ/2)*1j |
+           |0,  cos(θ/2), -sin(θ/2)*1j, 0|
+           |0, sin(θ/2)*1j, cos(θ/2), 0  |
+           |-sin(θ/2)*1j, 0, 0, cos(θ/2) |
+    ```
+
+    Circuit symbol:
+    ```
+     ┌────────┐
+    ─┤ RXX(θ) ├─
+     └────────┘
+    ```
+  }];
+}
+
 def R1Op : OneTargetParamOp<"r1", [Rotation]> {
   let summary = "an arbitrary rotation about the |1> state";
   let description = [{
